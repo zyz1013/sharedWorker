@@ -15,18 +15,14 @@
   </head>
   <body>
     <div id="box"></div>
-    <div id="box2"></div>
-    <button id="btn">改变内容</button>
     <script>
       const box = document.getElementById("box");
-
-      const btn = document.getElementById("btn");
       const worker = new SharedWorker("./shared.js");
       worker.port.start();
       worker.port.postMessage("开始传递消息吧");
-      worker.port.onmessage = function(e) {
+      worker.port.addEventListener(function(e) {
         box.innerHTML = e.data;
-      };
+      }, false);
     </script>
   </body>
 </html>
