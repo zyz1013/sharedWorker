@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #box {
+        width: 300px;
+        height: 300px;
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <div id="box2"></div>
+    <button id="btn">改变内容</button>
+    <script>
+      const box = document.getElementById("box");
+
+      const btn = document.getElementById("btn");
+      const worker = new SharedWorker("./shared.js");
+      worker.port.start();
+      worker.port.postMessage("开始传递消息吧");
+      worker.port.onmessage = function(e) {
+        box.innerHTML = e.data;
+      };
+    </script>
+  </body>
+</html>
